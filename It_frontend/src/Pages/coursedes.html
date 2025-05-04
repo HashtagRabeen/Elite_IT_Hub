@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Web Development Course | Sipalaya InfoTech</title>
+    <meta name="description" content="Master full stack web development with our 12-week intensive course. Learn HTML, CSS, JavaScript, React, Node.js, and MongoDB from industry experts.">
+    <style>
+        /* ===== Global Styles ===== */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* ===== Header ===== */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        /* ===== Hero Section ===== */
+        .course-hero {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .course-hero .container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .course-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .course-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .meta-item i {
+            font-size: 1.2rem;
+        }
+        
+        /* ===== Main Content ===== */
+        .course-main {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .course-main {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Course Content */
+        .course-content {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .course-description {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        /* What You'll Learn */
+        .learn-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        @media (max-width: 600px) {
+            .learn-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .learn-item {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+        }
+        
+        .learn-item i {
+            color: var(--primary);
+            margin-top: 0.2rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Course Curriculum */
+        .curriculum {
+            margin: 2rem 0;
+        }
+        
+        .module {
+            margin-bottom: 1.5rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .module-header {
+            background-color: #f8fafc;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .module-content {
+            padding: 1rem 1.5rem;
+            display: none;
+        }
+        
+        .module.active .module-content {
+            display: block;
+        }
+        
+        .lesson {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        
+        .lesson:last-child {
+            border-bottom: none;
+        }
+        
+        .lesson-duration {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Instructor Section */
+        .instructor {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            align-items: center;
+        }
+        
+        @media (max-width: 600px) {
+            .instructor {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        .instructor-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+        
+        .instructor-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .instructor-title {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .instructor-bio {
+            color: var(--gray);
+        }
+        
+        /* Sidebar */
+        .course-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+        
+        .sidebar-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .course-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            color: var(--gray);
+            font-size: 1.25rem;
+            margin-right: 0.5rem;
+        }
+        
+        .enroll-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 1.5rem 0;
+        }
+        
+        .enroll-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .demo-btn {
+            display: block;
+            width: 100%;
+            background-color: white;
+            color: var(--primary);
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .demo-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .sidebar-features {
+            list-style: none;
+        }
+        
+        .sidebar-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .sidebar-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-label {
+            color: var(--gray);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            margin: 3rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary);
+            opacity: 0.2;
+            position: absolute;
+            top: -1rem;
+            left: -1rem;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-weight: 600;
+        }
+        
+        .author-title {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* FAQ Section */
+        .faq {
+            margin: 3rem 0;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background-color: #f8fafc;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 1rem 1.5rem;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .footer-about {
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Sipalaya<span>InfoTech</span></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" class="btn-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Course Hero Section -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="courses.html">Courses</a>
+                <span>/</span>
+                <a href="#">Web Development</a>
+            </div>
+            <h1 class="course-title">Full Stack Web Development</h1>
+            <p>Master modern web development with HTML, CSS, JavaScript, React, Node.js and MongoDB in this 12-week intensive program</p>
+            <div class="course-meta">
+                <div class="meta-item">
+                    <i class="fas fa-star"></i>
+                    <span>4.9 (1,245 reviews)</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-users"></i>
+                    <span>5,000+ students enrolled</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-certificate"></i>
+                    <span>Certificate of Completion</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Placement Assistance</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="course-main">
+            <!-- Left Column - Course Content -->
+            <div class="course-content">
+                <!-- Course Overview -->
+                <section>
+                    <h2 class="section-title">Course Overview</h2>
+                    <p class="course-description">
+                        This comprehensive Full Stack Web Development course is designed to take you from beginner to job-ready developer in just 12 weeks. You'll learn to build modern, responsive web applications using the most in-demand technologies including HTML5, CSS3, JavaScript (ES6+), React, Node.js, Express, and MongoDB.
+                    </p>
+                    <p>
+                        Through hands-on projects, code reviews, and real-world simulations, you'll gain practical experience that mirrors actual development workflows. By course completion, you'll have a professional portfolio showcasing 5+ full-stack applications.
+                    </p>
+                </section>
+
+                <!-- What You'll Learn -->
+                <section>
+                    <h2 class="section-title">What You'll Learn</h2>
+                    <div class="learn-list">
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Build responsive websites with HTML5 & CSS3</span>
+                        </div>
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Master JavaScript (ES6+) and DOM manipulation</span>
+                        </div>
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Develop interactive UIs with React.js</span>
+                        </div>
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Create RESTful APIs with Node.js & Express</span>
+                        </div>
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Work with databases (MongoDB & Mongoose)</span>
+                        </div>
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Implement authentication & authorization</span>
+                        </div>
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Deploy applications to cloud platforms</span>
+                        </div>
+                        <div class="learn-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Follow industry best practices & workflows</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Course Curriculum -->
+                <section class="curriculum">
+                    <h2 class="section-title">Course Curriculum</h2>
+                    <div class="module active">
+                        <div class="module-header">
+                            <span>Module 1: HTML & CSS Fundamentals</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="module-content">
+                            <div class="lesson">
+                                <span>Introduction to Web Development</span>
+                                <span class="lesson-duration">45 min</span>
+                            </div>
+                            <div class="lesson">
+                                <span>HTML5 Semantic Structure</span>
+                                <span class="lesson-duration">1.5 hrs</span>
+                            </div>
+                            <div class="lesson">
+                                <span>CSS3 Styling & Layouts</span>
+                                <span class="lesson-duration">2 hrs</span>
+                            </div>
+                            <div class="lesson">
+                                <span>Responsive Design with Flexbox & Grid</span>
+                                <span class="lesson-duration">2 hrs</span>
+                            </div>
+                            <div class="lesson">
+                                <span>Project: Build a Portfolio Website</span>
+                                <span class="lesson-duration">3 hrs</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module">
+                        <div class="module-header">
+                            <span>Module 2: JavaScript Mastery</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="module-content">
+                            <!-- Lessons would be listed here -->
+                        </div>
+                    </div>
+                    <div class="module">
+                        <div class="module-header">
+                            <span>Module 3: Frontend with React</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="module-content">
+                            <!-- Lessons would be listed here -->
+                        </div>
+                    </div>
+                    <div class="module">
+                        <div class="module-header">
+                            <span>Module 4: Backend with Node.js</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="module-content">
+                            <!-- Lessons would be listed here -->
+                        </div>
+                    </div>
+                    <div class="module">
+                        <div class="module-header">
+                            <span>Module 5: Databases with MongoDB</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="module-content">
+                            <!-- Lessons would be listed here -->
+                        </div>
+                    </div>
+                    <div class="module">
+                        <div class="module-header">
+                            <span>Module 6: Deployment & DevOps</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="module-content">
+                            <!-- Lessons would be listed here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Instructor Section -->
+                <section>
+                    <h2 class="section-title">About the Instructor</h2>
+                    <div class="instructor">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor" class="instructor-avatar">
+                        <div class="instructor-info">
+                            <h3>Rajesh Sharma</h3>
+                            <div class="instructor-title">Senior Full Stack Developer | 10+ Years Experience</div>
+                            <p class="instructor-bio">
+                                Rajesh has worked with companies like Google, Amazon, and numerous startups. He specializes in JavaScript frameworks and has trained over 3,000 students. His teaching approach focuses on practical, real-world applications of programming concepts.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Testimonials -->
+                <section class="testimonials">
+                    <h2 class="section-title">Student Testimonials</h2>
+                    <div class="testimonial-grid">
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                This course completely transformed my career. Within 3 months of completing it, I landed a job as a junior developer at a tech startup. The projects were especially valuable during interviews.
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Student" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Priya Patel</h4>
+                                    <div class="author-title">Frontend Developer at TechNepal</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="testimonial-text">
+                                The curriculum is perfectly structured for beginners. Rajesh explains complex concepts in simple terms and provides excellent support through the student portal.
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Student" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Anil Gurung</h4>
+                                    <div class="author-title">Full Stack Developer</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section class="faq">
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <div class="faq-item active">
+                        <div class="faq-question">
+                            <span>Do I need prior programming experience?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            No, this course is designed for complete beginners. We start with the fundamentals and gradually progress to advanced topics. Our pre-course preparatory materials will help you get up to speed.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the time commitment required?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            The course requires about 15-20 hours per week including live classes, self-study, and project work. Recordings are available if you miss a session.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What kind of certificate will I receive?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            You'll receive a verifiable digital certificate upon completion, which includes your final project grades and skills mastered. Many of our students include this in their LinkedIn profiles.
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column - Sidebar -->
+            <div class="course-sidebar">
+                <div class="sidebar-card">
+                    <div class="course-features">
+                        <h3>Course Features</h3>
+                        <ul class="sidebar-features">
+                            <li>
+                                <span class="feature-label">Duration:</span>
+                                <span>12 Weeks</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Effort:</span>
+                                <span>15-20 hrs/week</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Format:</span>
+                                <span>Online + Live Sessions</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Prerequisites:</span>
+                                <span>None</span>
+                            </li>
+                            <li>
+                                <span class="feature-label">Language:</span>
+                                <span>English/Nepali</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Enroll Now</h3>
+                    <div class="pricing">
+                        <span class="price-original">Rs. 25,000</span>
+                        <span class="course-price">Rs. 18,000</span>
+                        <small>(Limited time offer)</small>
+                    </div>
+                    <a href="#" class="enroll-btn">Enroll Now</a>
+                    <a href="#" class="demo-btn">Schedule a Free Demo</a>
+                    <div class="payment-options">
+                        <p>Payment Options:</p>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fas fa-wallet"></i> <!-- eSewa -->
+                            <i class="fas fa-mobile-alt"></i> <!-- Khalti -->
+                        </div>
+                        <p>Installment plans available</p>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h3>Upcoming Batches</h3>
+                    <ul class="sidebar-features">
+                        <li>
+                            <span class="feature-label">June 5:</span>
+                            <span>Morning (9-11 AM)</span>
+                        </li>
+                        <li>
+                            <span class="feature-label">June 12:</span>
+                            <span>Evening (6-8 PM)</span>
+                        </li>
+                        <li>
+                            <span class="feature-label">June 20:</span>
+                            <span>Weekend (10 AM-2 PM)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">Sipalaya InfoTech</div>
+                    <p class="footer-about">
+                        Providing quality IT education and training since 2015. Our mission is to bridge the gap between academia and industry requirements.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Admission Process</a></li>
+                        <li><a href="#">Placement</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Popular Courses</h3>
+                    <ul>
+                        <li><a href="#">Full Stack Development</a></li>
+                        <li><a href="#">Python Programming</a></li>
+                        <li><a href="#">Data Science</a></li>
+                        <li><a href="#">UI/UX Design</a></li>
+                        <li><a href="#">Mobile App Development</a></li>
+                        <li><a href="#">Cloud Computing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Narephat 32, Koteshwor, Kathmandu</li>
+                        <li><i class="fas fa-phone"></i> 9851344071, 9806393939</li>
+                        <li><i class="fas fa-envelope"></i> infotech@sipalaya.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Sipalaya Info Tech Pvt. Ltd. All Rights Reserved. | PAN: 610189542
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle curriculum modules
+        document.querySelectorAll('.module-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('active');
+            });
+        });
+
+        // Toggle FAQ items
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                question.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

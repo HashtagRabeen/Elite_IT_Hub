@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipalaya Info Tech - Admin Panel (Inquiries)</title>
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* Admin Panel Layout */
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100%;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-header h2 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-header p {
+            color: #bdc3c7;
+            font-size: 0.8rem;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-item.active {
+            background-color: var(--primary-color);
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: var(--dark-color);
+            font-size: 1.8rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        /* Inquiry Management Section */
+        .inquiry-section {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-header h2 {
+            color: var(--secondary-color);
+        }
+        
+        .search-filter {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-filter input, .search-filter select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .search-filter button {
+            padding: 8px 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        /* Inquiry Table */
+        .inquiry-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .inquiry-table th, .inquiry-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .inquiry-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .inquiry-table tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status.responded {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status.urgent {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+        
+        .view-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .respond-btn {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .delete-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .pagination button {
+            padding: 8px 12px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            background-color: white;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        
+        .pagination button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card h3 {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        
+        .stat-card .trend {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .trend.up {
+            color: var(--success-color);
+        }
+        
+        .trend.down {
+            color: var(--accent-color);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+            
+            .sidebar-header h2, .sidebar-header p, .menu-item span {
+                display: none;
+            }
+            
+            .menu-item {
+                justify-content: center;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .inquiry-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2>Sipalaya Info Tech</h2>
+                <p>Admin Panel</p>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="menu-item active">
+                    <i class="fas fa-envelope"></i>
+                    <span>Inquiries</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span>Students</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Instructors</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Payments</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Placements</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1>Inquiry Management</h1>
+                <div class="user-info">
+                    <img src="https://via.placeholder.com/40" alt="Admin User">
+                    <span>Admin User</span>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Total Inquiries</h3>
+                    <div class="value">142</div>
+                    <div class="trend up">
+                        <i class="fas fa-arrow-up"></i> 12% from last month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Response</h3>
+                    <div class="value">23</div>
+                    <div class="trend down">
+                        <i class="fas fa-arrow-down"></i> 5% from last week
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Course Inquiries</h3>
+                    <div class="value">98</div>
+                    <div class="trend up">
+                        <i class="fas fa-arrow-up"></i> 8% from last month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <h3>Avg. Response Time</h3>
+                    <div class="value">6.2h</div>
+                    <div class="trend up">
+                        <i class="fas fa-arrow-up"></i> 15% improvement
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Inquiry Management Section -->
+            <div class="inquiry-section">
+                <div class="section-header">
+                    <h2>Recent Inquiries</h2>
+                    <div class="search-filter">
+                        <select>
+                            <option>Filter by Status</option>
+                            <option>Pending</option>
+                            <option>Responded</option>
+                            <option>Urgent</option>
+                        </select>
+                        <select>
+                            <option>Filter by Course</option>
+                            <option>Web Development</option>
+                            <option>Python Programming</option>
+                            <option>Graphic Design</option>
+                            <option>Data Science</option>
+                        </select>
+                        <input type="text" placeholder="Search inquiries...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                
+                <table class="inquiry-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Course</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#142</td>
+                            <td>Ramesh Shrestha</td>
+                            <td>ramesh@example.com</td>
+                            <td>9841234567</td>
+                            <td>Python Programming</td>
+                            <td>2023-06-15</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <button class="action-btn view-btn">View</button>
+                                <button class="action-btn respond-btn">Respond</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#141</td>
+                            <td>Sita Gurung</td>
+                            <td>sita.g@example.com</td>
+                            <td>9812345678</td>
+                            <td>Web Development</td>
+                            <td>2023-06-14</td>
+                            <td><span class="status responded">Responded</span></td>
+                            <td>
+                                <button class="action-btn view-btn">View</button>
+                                <button class="action-btn delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#140</td>
+                            <td>Hari Bahadur</td>
+                            <td>hari.b@example.com</td>
+                            <td>9801234567</td>
+                            <td>Data Science</td>
+                            <td>2023-06-14</td>
+                            <td><span class="status urgent">Urgent</span></td>
+                            <td>
+                                <button class="action-btn view-btn">View</button>
+                                <button class="action-btn respond-btn">Respond</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#139</td>
+                            <td>Gita Rai</td>
+                            <td>gita.r@example.com</td>
+                            <td>9851234567</td>
+                            <td>Graphic Design</td>
+                            <td>2023-06-13</td>
+                            <td><span class="status responded">Responded</span></td>
+                            <td>
+                                <button class="action-btn view-btn">View</button>
+                                <button class="action-btn delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#138</td>
+                            <td>John Smith</td>
+                            <td>john.s@example.com</td>
+                            <td>9811234567</td>
+                            <td>Python Programming</td>
+                            <td>2023-06-12</td>
+                            <td><span class="status pending">Pending</span></td>
+                            <td>
+                                <button class="action-btn view-btn">View</button>
+                                <button class="action-btn respond-btn">Respond</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="pagination">
+                    <button><i class="fas fa-angle-left"></i></button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button><i class="fas fa-angle-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
