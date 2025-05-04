@@ -12,17 +12,17 @@ function Home() {
     {
       title: "10% Off January Batch",
       description: "Limited time offer for early enrollments",
-      // bgColor: "bg-red-400",
+      bgColor: "bg-red-400",
     },
     {
       title: "New Python Course Launched",
       description: "Start your programming journey today",
-      // bgColor: "bg-blue-500",
+      bgColor: "bg-blue-500",
     },
     {
       title: "Web Development Masterclass",
       description: "Become a full-stack developer in 12 weeks",
-      // bgColor: "bg-green-500",
+      bgColor: "bg-green-500",
     },
   ];
   useEffect(() => {
