@@ -38,6 +38,7 @@ function PaymentSuccess() {
     };
 
     if (user && parseData) recordPayment();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parseData, user]);
 
   return (
