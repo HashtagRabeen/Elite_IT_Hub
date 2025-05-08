@@ -66,9 +66,11 @@ function Search() {
               })}
             </div>
           )}
-          {results.length === 0 && searchTerm && (
-            <div className="p-2">No results found</div>
-          )}
+          <div className="w-full mt-2 bg-white shadow-lg rounded-lg text-[#212529]">
+            {results.length === 0 && searchTerm && (
+              <div className="p-2 ">No results found</div>
+            )}
+          </div>
         </div>
       </div>
     </div>

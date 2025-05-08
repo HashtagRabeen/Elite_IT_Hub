@@ -170,14 +170,6 @@ function Navbar() {
                       <MdBusinessCenter size={18} className="mt-[2px] mr-2" />
                       Job Placement
                     </NavLink>
-                    <NavLink
-                      to="/data-science"
-                      className=" py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-[#184f81]"
-                      onClick={() => setIsOpen1(false)}
-                    >
-                      <FaDatabase size={18} className="mt-[2px] mr-2" />
-                      Data Science
-                    </NavLink>
                   </div>
                   <div className="mt-1">
                     <NavLink

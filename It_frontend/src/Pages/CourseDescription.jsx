@@ -49,7 +49,7 @@ function CourseDescription() {
       <div className="bg-[#147AA6]">
         <div className="w-[80%] m-auto flex h-[500px] rounded-xl">
           <div className=" w-[60%] h-[400px] flex flex-col justify-center mt-13 shadow-md rounded-xl border-2 border-gray-300 ml-3 bg-white">
-            <h1 className="text-5xl font-bold pl-3 mt-10">
+            <h1 className="text-5xl font-bold pl-3 mt-5">
               {singleCourse.name}
             </h1>
             <div className="flex text-xl font-semibold pl-3 gap-10 mt-4">
@@ -161,7 +161,7 @@ function CourseDescription() {
               </h1>
             </div>
             <div className="w-[50%]">
-              <h1 className="font-semibold text-xl text-[#212529] ">
+              <h1 className="font-semibold text-xl text-[#212529]">
                 Why {singleCourse.name} Development course?
               </h1>
             </div>
@@ -193,7 +193,7 @@ function CourseDescription() {
           </div>
           <div>
             {singleCourse.syllabus && singleCourse.syllabus.length > 0 ? (
-              <ol className="pl-8 bg-blue-100 w-[40%]">
+              <ol className="pl-8 bg-blue-100 w-[40%] p-2 mb-2">
                 {singleCourse.syllabus.map((item, index) => {
                   return (
                     <div key={index} className="">

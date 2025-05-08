@@ -26,17 +26,20 @@ function AdminPayments() {
   },[]);
   return (
     <div>
+      <div className="text-4xl font-bold mt-10 text-center underline text-[#212529]">
+        <h1>Customers Payments History</h1>
+      </div>
       {payments.length > 0 ? (
-        <div className="flex m-auto w-[80%] gap-10 justify-center mt-20 flex-wrap">
+        <div className="flex m-auto w-[80%] gap-10 justify-center mt-10 flex-wrap">
           {payments.map((payment) => {
             return (
-              <div key={payment._id} className=" space-y-2 font-semibold p-4 shadow-xl rounded-lg">
+              <div key={payment._id} className=" space-y-3 font-semibold p-4 shadow-xl rounded-lg">
                 <h1>User Name: Mr/Ms {payment.userName}</h1>
-                <h1>User Id:{payment.userId}</h1>
-                <h1>Transaction Code{payment.transaction_code}</h1>
-                <h1>Payment Status: <span className="px-6 bg-green-500 text-white rounded-xl">{payment.status}</span> </h1>
+                <h1>User Id: {payment.userId}</h1>
+                <h1>Transaction Code: {payment.transaction_code}</h1>
+                <h1>Payment Status: <span className="px-6 bg-green-500 text-white rounded-xl py-1">{payment.status}</span> </h1>
                 <h1>Total Amount Received: Rs.{payment.total_amount}</h1>
-                <h1>Date:{new Date(payment.createdAt).toLocaleString()}</h1>
+                <h1>Date: {new Date(payment.createdAt).toLocaleString()}</h1>
               </div>
             );
           })}

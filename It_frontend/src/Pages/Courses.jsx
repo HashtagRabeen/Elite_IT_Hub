@@ -104,7 +104,7 @@ function Courses() {
                 return (
                   <div
                     key={filterCourse._id}
-                    className="flex flex-col w-72 shadow-sm shadow-slate-300 rounded-xl h-[340px]"
+                    className="flex flex-col w-72 shadow-sm shadow-slate-300 rounded-xl h-auto pb-5"
                   >
                     <NavLink to={`/courseDescription/${filterCourse._id}`}>
                       <div className="flex justify-center">
@@ -158,7 +158,7 @@ function Courses() {
                   return (
                     <div
                       key={course._id}
-                      className="flex flex-col w-72 h-[330px] shadow-sm shadow-slate-300 rounded-xl"
+                      className="flex flex-col w-72 h-auto shadow-sm shadow-slate-300 rounded-xl pb-5"
                     >
                       <NavLink to={`/courseDescription/${course._id}`}>
                         <div className="flex justify-center">
@@ -204,7 +204,7 @@ function Courses() {
                 })}
               </div>
             ) : (
-              <div>Product Not Founds</div>
+              <div className="text-center text-2xl font-semibold text-red-500 my-5">Product Not Founds</div>
             )}
           </div>
         )}

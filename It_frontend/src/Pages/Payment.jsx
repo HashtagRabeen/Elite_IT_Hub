@@ -1,10 +1,20 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import CryptoJS from "crypto-js";
+import { AuthContext } from "../Context/AuthProvider";
+import { useContext, useEffect } from "react";
 
 function Payment() {
+  const navigate = useNavigate();
+  const { state } = useContext(AuthContext);
+
   const location = useLocation();
   console.log(location);
+  useEffect(() => {
+    if (!state?.token) navigate("/login");
+    if (!location.state) navigate("/cart");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, location.state]);
   const { totalWithVat, total_items } = location.state || {};
   let transaction_uuid = uuidv4();
   console.log(transaction_uuid);
@@ -97,9 +107,13 @@ function Payment() {
           value={hashInBase64}
           required
         />
-        <h1 className=" font-semibold text-xl text-[#212529]">Payment Confirmation</h1>
+        <h1 className=" font-semibold text-xl text-[#212529]">
+          Payment Confirmation
+        </h1>
         <h1 className=" font-semibold text-xl">Total Items: {total_items}</h1>
-        <h1 className=" font-semibold text-xl">Total Amount:Rs. {totalWithVat}</h1>
+        <h1 className=" font-semibold text-xl">
+          Total Amount:Rs. {totalWithVat}
+        </h1>
         <input
           className="bg-orange-500 text-white p-2 rounded-lg px-8"
           value="Confirm Payment"

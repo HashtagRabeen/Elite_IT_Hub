@@ -121,7 +121,7 @@ function Home() {
             </span>
             <span className=" mt-4 pl-12 flex items-center justify-center">
               {" "}
-              Comprehensive courses in various IT domains with hands-on projects
+              Comprehensive courses in various IT domains with hands-on projects  
             </span>
           </div>
         </div>
@@ -143,7 +143,7 @@ function Home() {
                 return (
                   <div
                     key={course._id}
-                    className=" flex flex-col w-72 h-[340px] shadow-sm shadow-slate-300 rounded-xl "
+                    className=" flex flex-col w-72 h-auto shadow-sm shadow-slate-300 rounded-xl pb-5 "
                   >
                     <NavLink to={`/courseDescription/${course._id}`}>
                       <div className="flex justify-center ">

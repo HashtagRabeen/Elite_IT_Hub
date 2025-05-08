@@ -5,7 +5,6 @@ import { FaWhatsapp } from "react-icons/fa";
 import { BsInstagram } from "react-icons/bs";
 import { FaLocationDot } from "react-icons/fa6";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { CiMail } from "react-icons/ci";
 import { MdMail } from "react-icons/md";
 import { useEffect, useState } from "react";
 
@@ -36,8 +35,8 @@ function Footer() {
             <div className="flex flex-col w-[20%]"><span className="font-bold text-xl h-10 text-blue-700"> Quick Links</span>
                 <NavLink to="/" className=" flex h-10 items-center font-semibold">Home</NavLink>
                 <NavLink to="/courses" className=" flex h-10 items-center font-semibold">Courses</NavLink>
-                <NavLink className=" flex h-10 items-center font-semibold ">About Us</NavLink>
-                <NavLink className=" flex h-10 items-center font-semibold ">Admission Process</NavLink>
+                <NavLink to="/aboutus" className=" flex h-10 items-center font-semibold ">About Us</NavLink>
+                <NavLink to="/inquiry" className=" flex h-10 items-center font-semibold ">Admission Process</NavLink>
                 <NavLink to="/refundpolicy" className=" flex h-10 items-center font-semibold ">Refund Policy</NavLink>
                 <NavLink className=" flex h-10 items-center font-semibold">Contact</NavLink>
             </div>
@@ -46,7 +45,7 @@ function Footer() {
                 {lists.slice(0,6).map((list,index)=>{
                      return(
                         <div key={index}>
-                            <NavLink to={`/courseDescription/${list._id}`} className="flex h-10 items-center font-semibold">{list.name}</NavLink>
+                            <NavLink to={`/courseDescription/${list._id}`} className="flex h-10 w-68 items-center font-semibold">{list.name}</NavLink>
                         </div>
                      )
                 })}

@@ -33,8 +33,8 @@ function App() {
 
   const hideNavbarAndFooter =
     location.pathname.startsWith("/admindashboard") ||
-    location.pathname.startsWith("/AdminDashboard")
-    location.pathname === "/login" ||
+    location.pathname.startsWith("/AdminDashboard")||
+    location.pathname === "/login" || 
     location.pathname.startsWith("/signup");
 
   return (
