@@ -1,4 +1,4 @@
-const { createCourse,getCourse,getCourseById,deleteCourse,editCourse } = require("../controllers/courseController");
+const { createCourse,getCourse,getCourseById,deleteCourse,editCourse,searchCourse } = require("../controllers/courseController");
 const express = require("express");
 
 const router = express.Router();
@@ -9,6 +9,7 @@ const AuthMid=require("../middlewares/authMid")
 
 router.post("/createCourse",upload.single("image"), createCourse);
 router.get("/getCourse",getCourse);
+router.get("/search",searchCourse);
 router.get("/getCourseById/:id",getCourseById);
 router.delete("/deleteCourse/:id",deleteCourse);
 router.put("/editCourse/:id",upload.single("image"),AuthMid,editCourse);

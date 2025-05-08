@@ -2,13 +2,23 @@ const courseModel = require("../model/courseModel");
 
 const createCourse = async (req, res) => {
   try {
+    const {
+      name,
+      overview,
+      category,
+      duration,
+      scope,
+      technologies,
+      fee,
+      syllabus,
+      benefits,
+    } = req.body;
 
-    const {name,overview,category,duration,scope, technologies,fee,syllabus,benefits}=req.body;
-
-
-    const benefitsArray=benefits.split(",").map(item=>item.trim());
-    const syllabusArray=syllabus.split(",").map(item=>item.trim());
-    const technologiesArray=technologies.split(",").map(item=>item.trim());
+    const benefitsArray = benefits.split(",").map((item) => item.trim());
+    const syllabusArray = syllabus.split(",").map((item) => item.trim());
+    const technologiesArray = technologies
+      .split(",")
+      .map((item) => item.trim());
 
     const newCourse = new courseModel({
       name,
@@ -17,10 +27,10 @@ const createCourse = async (req, res) => {
       category,
       duration,
       scope,
-      technologies:technologiesArray,
+      technologies: technologiesArray,
       fee,
-      syllabus:syllabusArray,
-      benefits:benefitsArray,
+      syllabus: syllabusArray,
+      benefits: benefitsArray,
     });
     const savedCourse = await newCourse.save();
     console.log(savedCourse);
@@ -82,8 +92,18 @@ const deleteCourse = async (req, res) => {
 
 const editCourse = async (req, res) => {
   try {
-    const id=req.params.id;
-    const { name, overview, category, duration, scope, technologies, fee, syllabus, benefits } = req.body;
+    const id = req.params.id;
+    const {
+      name,
+      overview,
+      category,
+      duration,
+      scope,
+      technologies,
+      fee,
+      syllabus,
+      benefits,
+    } = req.body;
 
     const updatedData = {
       name,
@@ -91,10 +111,12 @@ const editCourse = async (req, res) => {
       category,
       duration,
       scope,
-      technologies:technologies?.trim() ? technologies.split(",").map(item => item.trim()) : [],
+      technologies: technologies?.trim()
+        ? technologies.split(",").map((item) => item.trim())
+        : [],
       fee,
-      syllabus:syllabus?syllabus.split(",").map(item => item.trim()):[],
-      benefits:benefits?benefits.split(",").map(item => item.trim()):[],
+      syllabus: syllabus ? syllabus.split(",").map((item) => item.trim()) : [],
+      benefits: benefits ? benefits.split(",").map((item) => item.trim()) : [],
     };
 
     if (req.file) {
@@ -102,17 +124,38 @@ const editCourse = async (req, res) => {
     }
 
     const editCourse = await courseModel.findByIdAndUpdate(
-      {_id:id },
+      { _id: id },
       updatedData,
       { new: true }
     );
 
-    res.status(200).json({ message: "Course updated successfully", editCourse });
+    res
+      .status(200)
+      .json({ message: "Course updated successfully", editCourse });
   } catch (error) {
     console.log("Error", error);
     res.status(400).json({ message: "Not allowed to edit course" });
   }
 };
 
+const searchCourse = async (req, res) => {
+  const query = req.query.query;
+  try {
+    const courses = await courseModel.find({
+      name: { $regex: query, $options: "i" },
+    });
+    res.status(200).json({ message: "Search Successful", courses });
+  } catch (error) {
+    console.log("Search Error", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
 
-module.exports = { createCourse, getCourse, getCourseById, deleteCourse,editCourse};
+module.exports = {
+  createCourse,
+  getCourse,
+  getCourseById,
+  deleteCourse,
+  editCourse,
+  searchCourse
+};

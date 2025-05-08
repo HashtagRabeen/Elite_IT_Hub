@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import Search from "../Components/Courses/Search";
 
 function Courses() {
   const [courses, setCourses] = useState([]);
@@ -49,6 +50,7 @@ function Courses() {
           </p>
         </div>
       </div>
+      <Search/>
       <div className="font-semibold text-[28px] text-[2C3E50] flex justify-center h-28 items-center">
         <h1>Browse by Category</h1>
       </div>
