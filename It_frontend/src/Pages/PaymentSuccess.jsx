@@ -1,4 +1,6 @@
+import { useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { AuthContext } from "../Context/AuthProvider";
 
 function PaymentSuccess() {
   const [searchParams] = useSearchParams();
@@ -8,6 +10,35 @@ function PaymentSuccess() {
   console.log("Decoded Data", decodedData);
   const parseData = JSON.parse(decodedData);
   console.log("Parse Data", parseData);
+
+  const { user,state } = useContext(AuthContext);
+
+  useEffect(() => {
+    const recordPayment = async () => {
+      try {
+        const res = await fetch("http://localhost:9000/api/createPayment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${state.token}`,
+          },
+          body: JSON.stringify({
+            transaction_code: parseData.transaction_code,
+            status: parseData.status,
+            total_amount: parseData.total_amount,
+            userId: user._id,
+            userName: user.name,
+          }),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        console.log("Payment saved", await res.json());
+      } catch (err) {
+        console.error("Failed to record payment:", err);
+      }
+    };
+
+    if (user && parseData) recordPayment();
+  }, [parseData, user]);
 
   return (
     <div className="min-h-screen">
@@ -33,7 +64,8 @@ function PaymentSuccess() {
         </h1>
         <h1>
           Total Amount:{" "}
-          <span className="text-red-400 font-bold">Rs.
+          <span className="text-red-400 font-bold">
+            Rs.
             {parseData.total_amount}
           </span>
         </h1>

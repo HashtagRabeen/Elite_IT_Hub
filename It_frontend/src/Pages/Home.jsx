@@ -5,6 +5,7 @@ import { FaCertificate } from "react-icons/fa6";
 import Success2 from "../Components/Home/Success2";
 import StudentVoice from "../Components/Home/StudentVoice";
 import { FaArrowRight } from "react-icons/fa6";
+import { MdBusinessCenter } from "react-icons/md";
 
 
 function Home() {
@@ -115,7 +116,7 @@ function Home() {
           </div>
           <div className=" h-[250px] w-[350px] shadow-xl shadow-slate-300 rounded-lg bg-white flex flex-col hover:-translate-y-3 duration-300">
             <span className="font-bold text-2xl mt-15 flex flex-col justify-center items-center ">
-              <FaCertificate size={50} className="mb-4 text-[#184f81]" />
+              <MdBusinessCenter size={50} className="mb-4 text-[#184f81]" />
               Corporate Workshops
             </span>
             <span className=" mt-4 pl-12 flex items-center justify-center">

@@ -40,7 +40,7 @@ const login = async (req, res) => {
         const token = await jwt.sign(
           { _id: isExist._id, role: isExist.role },
           "gahsdjffeuwgfuabdhcbhjabfhabsch",
-          { expiresIn: "1hr" }
+          { expiresIn: "2hr" }
         );
         res
           .status(200)

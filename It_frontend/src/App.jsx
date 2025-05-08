@@ -2,13 +2,9 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./Pages/Home";
 import Navbar from "./Navigation/Navbar";
 import AdminDashboard from "./Admin/AdminDashboard";
-import Navigation from "./Navigation/Navigation";
 import Courses from "./Pages/Courses";
-import Location from "./Pages/Location";
-import Anjan from "./Pages/Anjan";
 import CourseDescription from "./Pages/CourseDescription";
 import Footer from "./Pages/Footer";
-import Try from "./Pages/try";
 import Login from "./Pages/Login";
 import SuccessStory from "./Pages/SuccessStory";
 import AdminCourses from "./Admin/AdminCourses";
@@ -31,6 +27,7 @@ import Enrollment from "./Pages/Enrollment";
 import AdminEnrollment from "./Admin/AdminEnrollment";
 import AboutUs from "./Pages/AboutUs";
 import RefundPolicy from "./Pages/RefundPolicy";
+import ScrollToTop from "./Components/ScrollToTop";
 function App() {
   const location = useLocation();
 
@@ -41,6 +38,7 @@ function App() {
 
   return (
     <div>
+      <ScrollToTop />
       {!hideNavbarAndFooter && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -60,11 +58,8 @@ function App() {
           <Route path="enrollments" element={<AdminEnrollment />} />
         </Route>
         <Route path="/courses" element={<Courses />} />
-        <Route path="/location" element={<Location />} />
-        <Route path="/anjan" element={<Anjan />} />
         <Route path="/courseDescription/:id" element={<CourseDescription />} />
         <Route path="/footer" element={<Footer />} />
-        <Route path="/try" element={<Try />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/success-story" element={<SuccessStory />} />

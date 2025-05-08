@@ -7,6 +7,7 @@ import {
   FaSignInAlt,
   FaUserPlus,
 } from "react-icons/fa";
+
 import { FaPython } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
 import { FaPaintBrush } from "react-icons/fa";
@@ -15,6 +16,7 @@ import { IoLogOut } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
 import { VscCompassActive } from "react-icons/vsc";
 import { CgProfile } from "react-icons/cg";
+import { MdBusinessCenter } from "react-icons/md";
 
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthProvider";
@@ -75,7 +77,7 @@ function Navbar() {
           </NavLink>
           <div className="flex justify-center gap-x-3 items-center">
             <NavLink
-              className="h-[40px] w-[70px] flex flex-col justify-center items-center hover:bg-slate-100 hover:text-blue-500"
+              className="h-[40px] w-[70px] flex flex-col justify-center items-center hover:bg-slate-100 hover:text-[#184f81]"
               to="/"
             >
               Home
@@ -88,7 +90,7 @@ function Navbar() {
               {/* Dropdown button */}
               <button
                 // onClick={toggleDropdown}
-                className="group-hover:flex h-[50px] w-[90px] flex items-center justify-center hover:text-blue-500 z-50 hover:bg-slate-100"
+                className="group-hover:flex h-[50px] w-[90px] flex items-center justify-center hover:text-[#184f81] z-50 hover:bg-slate-100"
                 to="/courses"
               >
                 Courses <FaChevronDown className="ml-1 text-xs" />
@@ -102,7 +104,7 @@ function Navbar() {
                           <div key={index}>
                             <NavLink
                               to={`/courseDescription/${list._id}`}
-                              className="py-1 text-gray-700 flex pl-6 hover:bg-gray-100 hover:text-blue-500"
+                              className="py-1 text-gray-700 flex pl-6 hover:bg-gray-100 hover:text-[#184f81]"
                               onClick={() => setIsOpen(false)}
                             >
                               {list.name}
@@ -130,7 +132,7 @@ function Navbar() {
                       Demo Classes
                     </NavLink> */}
                     <NavLink
-                      className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-blue-500"
+                      className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-[#184f81]"
                       to="/courses"
                       onClick={() => setIsOpen(false)}
                     >
@@ -146,7 +148,7 @@ function Navbar() {
               onMouseEnter={handleMouseEnter1}
               onMouseLeave={handleMouseLeave1}
             >
-              <button className=" h-[40px] w-[100px] hover:bg-slate-100 flex items-center justify-center hover:text-blue-500">
+              <button className=" h-[40px] w-[100px] hover:bg-slate-100 flex items-center justify-center hover:text-[#184f81]">
                 Students <FaChevronDown className="ml-1 text-xs" />
               </button>
               {isOpen1 && (
@@ -154,34 +156,27 @@ function Navbar() {
                   <div>
                     <NavLink
                       to="/python"
-                      className="py-1 text-gray-700 flex hover:bg-gray-100 pl-3 hover:text-blue-500"
+                      className="py-1 text-gray-700 flex hover:bg-gray-100 pl-3 hover:text-[#184f81]"
                       onClick={() => setIsOpen1(false)}
                     >
-                      <FaPython size={18} className="mt-1 mr-2" />
+                      <FaCertificate size={18} className="mt-1 mr-2" />
+                      Verify Certificate
                     </NavLink>
                     <NavLink
                       to="/web-development"
-                      className="py-1 text-gray-700 hover:bg-gray-100 flex pl-3 hover:text-blue-500"
+                      className="py-1 text-gray-700 hover:bg-gray-100 flex pl-3 hover:text-[#184f81]"
                       onClick={() => setIsOpen1(false)}
                     >
-                      <FaCode size={18} className="mt-[2px] mr-2" />
+                      <MdBusinessCenter size={18} className="mt-[2px] mr-2" />
                       Job Placement
                     </NavLink>
                     <NavLink
                       to="/data-science"
-                      className=" py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-blue-500"
+                      className=" py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-[#184f81]"
                       onClick={() => setIsOpen1(false)}
                     >
                       <FaDatabase size={18} className="mt-[2px] mr-2" />
                       Data Science
-                    </NavLink>
-                    <NavLink
-                      to="/graphic-design"
-                      className=" py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-blue-500"
-                      onClick={() => setIsOpen1(false)}
-                    >
-                      <FaPaintBrush size={18} className="mt-[2px] mr-2" />
-                      Graphic Design
                     </NavLink>
                   </div>
                   <div className="mt-1">
@@ -204,13 +199,13 @@ function Navbar() {
               )}
             </div>
             <NavLink
-              className="h-[40px] w-[80px] hover:bg-slate-100 flex flex-col justify-center items-center hover:text-blue-500"
+              className="h-[40px] w-[80px] hover:bg-slate-100 flex flex-col justify-center items-center hover:text-[#184f81]"
               to="/aboutus"
             >
               About Us
             </NavLink>
             <NavLink
-              className="h-[40px] w-[60px] hover:bg-slate-100 flex flex-col justify-center items-center hover:text-blue-500"
+              className="h-[40px] w-[60px] hover:bg-slate-100 flex flex-col justify-center items-center hover:text-[#184f81]"
               to="/"
             >
               Blog
@@ -248,7 +243,7 @@ function Navbar() {
               <div className="flex space-x-3 h-[50px] justify-center items-center">
                 <NavLink
                   to="/login"
-                  className="border-2 flex justify-center items-center h-[40px] w-[100px] border-gray-300 hover:border-blue-600 hover:text-blue-600 rounded-sm"
+                  className="border-2 flex justify-center items-center h-[40px] w-[100px] border-gray-300 hover:border-blue-600 hover:text-[#184f81] rounded-sm"
                 >
                   <FaSignInAlt size={16} className=" mr-2 mt-1" />
                   Login

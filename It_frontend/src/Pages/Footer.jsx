@@ -46,7 +46,7 @@ function Footer() {
                 {lists.slice(0,6).map((list,index)=>{
                      return(
                         <div key={index}>
-                            <NavLink to={`/courseDescription/${list._id}`} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex h-10 items-center font-semibold">{list.name}</NavLink>
+                            <NavLink to={`/courseDescription/${list._id}`} className="flex h-10 items-center font-semibold">{list.name}</NavLink>
                         </div>
                      )
                 })}
