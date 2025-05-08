@@ -57,7 +57,7 @@ function Success2() {
                     <h1 className=" text-blue-700 w-60 text-center">
                       @{item.workAt}
                     </h1>
-                    <h1 className=" mt-5 text-[14px] text-[#495057]">
+                    <h1 className=" mt-5 text-[14px] text-[#495057] font-semibold">
                       College/Faculty
                     </h1>
                     <h1 className=" text-[12px] mt-3">

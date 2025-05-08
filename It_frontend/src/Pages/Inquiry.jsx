@@ -4,11 +4,11 @@ import { Slide, toast } from "react-toastify";
 
 function Inquiry() {
   const location = useLocation();
-  console.log(location.state.name);
-  const id=location.state._id
-  console.log(id);
-  const navigate=useNavigate()
-  const [course, setCourse] = useState(location.state.name);
+  console.log(location.state?.name);
+  // const id = location.state._id;
+  // console.log(id);
+  const navigate = useNavigate();
+  const [course, setCourse] = useState(location.state?.name || "");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -18,7 +18,7 @@ function Inquiry() {
     e.preventDefault();
 
     try {
-      let response = await fetch("http://localhost:9000/api/createInquiry",{
+      let response = await fetch("http://localhost:9000/api/createInquiry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,8 +57,8 @@ function Inquiry() {
         <label htmlFor="course">Course</label>
         <input
           value={course}
-          onChange={(e)=>{
-            setCourse(e.target.value)
+          onChange={(e) => {
+            setCourse(e.target.value);
           }}
           type="text"
           placeholder="Enter course you want to study"
@@ -111,10 +111,12 @@ function Inquiry() {
           className="border-1 border-gray-400 outline-none p-2 rounded-lg"
         />
         <button
-        onClick={()=>{
-             navigate(`/courseDescription/${id}`)
-        }}
-        type="submit" className="py-2 bg-blue-500 text-white rounded-xl">
+          onClick={() => {
+            navigate(`/courses`);
+          }}
+          type="submit"
+          className="py-2 bg-blue-500 text-white rounded-xl"
+        >
           Submit Your Inquiry
         </button>
       </form>

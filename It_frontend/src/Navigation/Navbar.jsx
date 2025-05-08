@@ -13,6 +13,8 @@ import { FaPaintBrush } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { IoLogOut } from "react-icons/io5";
 import { FaShoppingCart } from "react-icons/fa";
+import { VscCompassActive } from "react-icons/vsc";
+import { CgProfile } from "react-icons/cg";
 
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthProvider";
@@ -112,8 +114,8 @@ function Navbar() {
                   ) : (
                     <div></div>
                   )}
-                  <div className="mt-1">
-                    <NavLink
+                  <div className="border-t-2 border-gray-300">
+                    {/* <NavLink
                       className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-blue-500"
                       onClick={() => setIsOpen(false)}
                     >
@@ -126,13 +128,13 @@ function Navbar() {
                     >
                       <SiGoogleclassroom size={18} className="mt-[2px] mr-2" />
                       Demo Classes
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink
                       className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-blue-500"
                       to="/courses"
                       onClick={() => setIsOpen(false)}
                     >
-                      <SiGoogleclassroom size={18} className="mt-[2px] mr-2" />
+                      <VscCompassActive size={18} className="mt-[2px] mr-2" />
                       Explore More
                     </NavLink>
                   </div>
@@ -236,8 +238,9 @@ function Navbar() {
                   Log out
                 </button>
                 <div>
-                  <span className="text-base font-medium text-gray-700 relative left-20">
-                    <h1>{user?.name}</h1>
+                  <span className="text-base font-medium text-gray-700 relative left-20 flex">
+                    <CgProfile size={25} />{" "}
+                    <h1 className="pl-2">{user?.name}</h1>
                   </span>
                 </div>
               </>

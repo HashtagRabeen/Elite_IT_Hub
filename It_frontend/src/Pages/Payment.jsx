@@ -5,7 +5,7 @@ import CryptoJS from "crypto-js";
 function Payment() {
   const location = useLocation();
   console.log(location);
-  const { totalWithVat, total_items } = location.state;
+  const { totalWithVat, total_items } = location.state || {};
   let transaction_uuid = uuidv4();
   console.log(transaction_uuid);
 

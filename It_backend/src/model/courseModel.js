@@ -42,7 +42,7 @@ const courseSchema = new mongoose.Schema({
     required:true,
   },
   technologies:{
-    type: String,
+    type: [String],
     required:true,
   },
   benefits:{

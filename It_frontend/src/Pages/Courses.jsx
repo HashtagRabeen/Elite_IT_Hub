@@ -34,8 +34,8 @@ function Courses() {
   }, []);
 
   return (
-    <div className="border-2 border-black">
-      <div className=" h-96 flex justify-center flex-col items-center bg-gradient-to-br from-blue-500 to-gray-800">
+    <div className="">
+      <div className=" h-96 flex justify-center flex-col items-center bg-[#184f81]">
         <div className="w-[70%]">
           <h1 className="text-5xl text-white py-3 px-40 font-bold">
             Explore Our IT Training Courses
@@ -135,7 +135,11 @@ function Courses() {
                       >
                         View Details
                       </NavLink>
-                      <NavLink className="px-4 py-2 rounded-xl bg-[#FD7E14] text-white text-[15px]">
+                      <NavLink
+                        to="/enrollment"
+                        state={filterCourse}
+                        className="px-4 py-2 rounded-xl bg-[#FD7E14] text-white text-[15px]"
+                      >
                         Enroll Now
                       </NavLink>
                     </div>
@@ -185,7 +189,11 @@ function Courses() {
                         >
                           View Details
                         </NavLink>
-                        <NavLink className="px-4 py-2 rounded-xl bg-[#FD7E14] text-white text-[15px]">
+                        <NavLink
+                          to="/enrollment"
+                          state={course}
+                          className="px-4 py-2 rounded-xl bg-[#FD7E14] text-white text-[15px]"
+                        >
                           Enroll Now
                         </NavLink>
                       </div>

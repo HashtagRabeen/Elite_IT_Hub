@@ -47,7 +47,7 @@ function SuccessStory() {
                   <h1 className=" text-[#212529] font-semibold text-[18px] w-60 text-center h-8">{item.name}</h1>
                   <h1>{item.position}</h1>
                   <h1 className=" text-blue-700 w-60 text-center">@{item.workAt}</h1>
-                  <h1 className=" mt-5 text-[14px] text-[#495057]">College/Faculty</h1>
+                  <h1 className=" mt-5 font-semibold text-[14px] text-[#495057]">College/Faculty</h1>
                   <h1 className=" text-[12px] mt-3">{item.college}/{item.faculty}</h1>
                   </div>
               </div>

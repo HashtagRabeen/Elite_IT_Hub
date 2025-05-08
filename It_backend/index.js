@@ -13,6 +13,7 @@ const assignmentRouter = require("./src/Routes/assignmentRoute");
 const successRouter = require("./src/Routes/successRoute");
 const testimonialRouter = require("./src/Routes/testimonialRoute");
 const inquiryRouter = require("./src/Routes/inquiryRoute");
+const enrollRouter = require("./src/Routes/enrollRoute");
 app.use(express.json());
 app.use(cors());
 
@@ -24,6 +25,7 @@ app.use("/api", assignmentRouter);
 app.use("/api", successRouter);
 app.use("/api", testimonialRouter);
 app.use("/api", inquiryRouter);
+app.use("/api", enrollRouter);
 
 app.listen(PORT, () => {
   console.log(`The port is listening in port: ${PORT}`);

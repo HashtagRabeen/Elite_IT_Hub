@@ -11,10 +11,31 @@ const enrollmentSchema = new mongoose.Schema({
     ref:'course',
     required:true,
   },
+  name:{
+    type:String,
+    required:true,
+  },
+  phone:{
+    type:String,
+    required:true,
+  },
+  address:{
+     type:String,
+     required:true,
+  },
+  academic:{
+      type:String,
+      required:true,
+      enum:['+2','Bachelors','Masters','Phd','Other']
+  },
   paymentStatus:{
      type:String,
      enum:['pending','completed','failed'],
      default:'pending'
+  },
+  email:{
+     type:String,
+     required:true,
   },
   enrolledAt: {
     type: Date,

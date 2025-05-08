@@ -27,11 +27,15 @@ import EditUser from "./Admin/EditUser";
 import AdminPayments from "./Admin/AdminPayments";
 import Inquiry from "./Pages/Inquiry";
 import AdminInquiry from "./Admin/AdminInquiry";
+import Enrollment from "./Pages/Enrollment";
+import AdminEnrollment from "./Admin/AdminEnrollment";
+import AboutUs from "./Pages/AboutUs";
+import RefundPolicy from "./Pages/RefundPolicy";
 function App() {
   const location = useLocation();
 
   const hideNavbarAndFooter =
-    location.pathname.startsWith("/AdminDashboard") ||
+    location.pathname.startsWith("/admindashboard") ||
     location.pathname === "/login" ||
     location.pathname.startsWith("/signup");
 
@@ -41,7 +45,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
-          path="/AdminDashboard"
+          path="/admindashboard"
           element={<Protected Comp={AdminDashboard} />}
         >
           <Route path="dashboard" element={<Dashboard />} />
@@ -53,6 +57,7 @@ function App() {
           <Route path="success" element={<AdminSuccess />} />
           <Route path="editUser" element={<EditUser />} />
           <Route path="payments" element={<AdminPayments />} />
+          <Route path="enrollments" element={<AdminEnrollment />} />
         </Route>
         <Route path="/courses" element={<Courses />} />
         <Route path="/location" element={<Location />} />
@@ -68,6 +73,9 @@ function App() {
         <Route path="/paymentFailure" element={<PaymentFailure />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/inquiry" element={<Inquiry />} />
+        <Route path="/enrollment" element={<Enrollment />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/refundpolicy" element={<RefundPolicy />} />
       </Routes>
       {!hideNavbarAndFooter && <Footer />}
     </div>

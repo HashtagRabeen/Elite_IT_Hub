@@ -4,6 +4,8 @@ import { RiComputerLine } from "react-icons/ri";
 import { FaCertificate } from "react-icons/fa6";
 import Success2 from "../Components/Home/Success2";
 import StudentVoice from "../Components/Home/StudentVoice";
+import { FaArrowRight } from "react-icons/fa6";
+
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,17 +14,17 @@ function Home() {
     {
       title: "10% Off January Batch",
       description: "Limited time offer for early enrollments",
-      bgColor: "bg-red-400",
+      // bgColor: "bg-red-400",
     },
     {
       title: "New Python Course Launched",
       description: "Start your programming journey today",
-      bgColor: "bg-blue-500",
+      // bgColor: "bg-blue-500",
     },
     {
       title: "Web Development Masterclass",
       description: "Become a full-stack developer in 12 weeks",
-      bgColor: "bg-green-500",
+      // bgColor: "bg-green-500",
     },
   ];
   useEffect(() => {
@@ -65,8 +67,9 @@ function Home() {
                   <div className="w-[30%] text-xl">
                     <p>{slide.description}</p>
                   </div>
-                  <NavLink className=" h-12 w-32 flex justify-center items-center bg-white text-black rounded-lg mt-10">
-                    Enroll now
+                  <NavLink to="/inquiry" className=" h-12 w-48 flex justify-center items-center bg-white text-black rounded-lg mt-10 font-semibold">
+                      SEND AN ENQUIRY <FaArrowRight size={20} className="ml-1 mt-[1px]" />
+
                   </NavLink>
                 </div>
               )}
@@ -107,7 +110,6 @@ function Home() {
               Certification
             </span>
             <span className=" mt-4 pl-12 flex items-center justify-center">
-              {" "}
               Comprehensive courses in various IT domains with hands-on projects
             </span>
           </div>
@@ -174,7 +176,9 @@ function Home() {
                       >
                         View Details
                       </NavLink>
-                      <NavLink className="px-4 py-2 rounded-sm bg-[#FD7E14] text-white text-[15px]">
+                      <NavLink
+                      to="/enrollment" state={course}
+                      className="px-4 py-2 rounded-sm bg-[#FD7E14] text-white text-[15px]">
                         Enroll Now
                       </NavLink>
                     </div>

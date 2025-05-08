@@ -11,7 +11,7 @@ import { Bounce, toast } from "react-toastify";
 function CourseDescription() {
   const [singleCourse, setSingleCourse] = useState({});
 
-  const navigate=useNavigate("");
+  const navigate=useNavigate();
 
   const {cartDispatch}=useContext(CartContext);
   const overviewRef = useRef(null);
@@ -74,13 +74,13 @@ function CourseDescription() {
             </div>
 
             <div className=" mt-5 flex gap-5 ml-10">
-              <NavLink className="px-4 py-3 rounded-lg bg-[#0054C0] text-white font-semibold flex">
+              <NavLink to="/enrollment" state={singleCourse} className="px-4 py-3 rounded-lg bg-[#0054C0] text-white font-semibold flex">
                 ENROLL NOW <FaArrowRight size={20} className="ml-3 mt-1" />
               </NavLink>
 
               <button
               onClick={()=>{
-                   navigate("/inquiry",{state:singleCourse})
+                   navigate("/inquiry",{state:singleCourse})  
               }}
               className=" px-4 py-3 rounded-lg bg-[#ff3f00] text-white font-semibold flex">
                 SEND AN INQUIRY

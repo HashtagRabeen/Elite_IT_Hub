@@ -38,7 +38,7 @@ function Footer() {
                 <NavLink to="/courses" className=" flex h-10 items-center font-semibold">Courses</NavLink>
                 <NavLink className=" flex h-10 items-center font-semibold ">About Us</NavLink>
                 <NavLink className=" flex h-10 items-center font-semibold ">Admission Process</NavLink>
-                <NavLink className=" flex h-10 items-center font-semibold ">Placement</NavLink>
+                <NavLink to="/refundpolicy" className=" flex h-10 items-center font-semibold ">Refund Policy</NavLink>
                 <NavLink className=" flex h-10 items-center font-semibold">Contact</NavLink>
             </div>
             <div className="flex flex-col w-[20%]"><span className="font-bold text-xl text-blue-700 h-10">Popular Courses</span>

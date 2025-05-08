@@ -27,7 +27,7 @@ const createCourse = async (req, res) => {
     res.status(201).json({ message: "course saved successfully" });
   } catch (error) {
     console.log("Error", error);
-    res.status(500).send("server error", error);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
