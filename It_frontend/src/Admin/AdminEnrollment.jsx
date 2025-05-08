@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Bounce, Slide, toast } from "react-toastify";
+import { AuthContext } from "../Context/AuthProvider";
 function AdminEnrollment() {
   const [enrollment, setEnrollment] = useState([]);
+  const{state}=useContext(AuthContext)
   const getEnrollment = async () => {
     try {
       let response = await fetch("http://localhost:9000/api/getEnrollment", {
         method: "GET",
-        // headers:{
-        //    Authorization:`Bearer ${state.token}`
-        // }
+        headers:{
+           Authorization:`Bearer ${state.token}`
+        }
       });
       response = await response.json();
       console.log(response.showEnrollment);
@@ -187,7 +189,7 @@ const Section = ({ title, data, onDelete, onUpdate }) => {
                         }}
                         className="py-1 bg-green-400 text-white rounded w-40"
                       >
-                        Completed
+                        Set to Completed
                       </button>
                     )}
                     {item.paymentStatus !== "pending" && (

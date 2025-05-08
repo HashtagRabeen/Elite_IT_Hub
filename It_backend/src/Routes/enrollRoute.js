@@ -8,6 +8,6 @@ const AuthMid=require("../middlewares/authMid")
 router.post("/createEnrollment/:id",AuthMid,createEnrollment);
 router.put("/updateEnrollmentStatus/:id",updateEnrollmentStatus);
 router.delete("/deleteEnrollment/:id",deleteEnrollment);
-router.get("/getEnrollment",getEnrollment);
+router.get("/getEnrollment",AuthMid,getEnrollment);
 
 module.exports=router;

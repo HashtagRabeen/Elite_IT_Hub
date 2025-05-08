@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Bounce, Flip, toast } from "react-toastify";
+import { AuthContext } from "../Context/AuthProvider";
 
 function AdminCourses() {
+  const { state } = useContext(AuthContext);
+
   const [name, setName] = useState("");
   const [overview, setOverview] = useState("");
   const [image, setImage] = useState(null);
@@ -93,7 +96,7 @@ function AdminCourses() {
   };
   return (
     <div>
-       <div className="ml-48 font-bold text-4xl mt-10">
+      <div className="ml-48 font-bold text-4xl mt-10">
         <h1>Courses</h1>
       </div>
       <form
@@ -294,7 +297,9 @@ function AdminCourses() {
                   <div className="flex justify-center gap-x-3 mt-3">
                     <button
                       onClick={() => {
-                        navigate("/AdminDashboard/editCourse", { state: course });
+                        navigate("/AdminDashboard/editCourse", {
+                          state: course,
+                        });
                       }}
                       className="px-4 py-2 rounded-xl bg-blue-500 text-white"
                     >
