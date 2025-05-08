@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bounce, Flip, toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthProvider";
 
 function AdminCourses() {
-  const { state } = useContext(AuthContext);
 
   const [name, setName] = useState("");
   const [overview, setOverview] = useState("");
