@@ -22,6 +22,7 @@ function AdminPayments() {
   };
   useEffect(() => {
     getPayments();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
   return (
     <div>

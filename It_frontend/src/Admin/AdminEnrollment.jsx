@@ -21,6 +21,7 @@ function AdminEnrollment() {
   };
   useEffect(() => {
     getEnrollment();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const deleteEnrollment = async (id) => {
     try {
