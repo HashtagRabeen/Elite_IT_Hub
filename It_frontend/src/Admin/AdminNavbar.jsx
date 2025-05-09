@@ -9,9 +9,9 @@ function AdminNavbar() {
       <NavLink to="courses" className=" h-9 w-40 flex items-center hover:text-blue-500">Course Management</NavLink>
       <NavLink to="inquiry" className=" h-9 w-20 flex items-center hover:text-blue-500">Inquiry</NavLink>
       <NavLink to="payments" className=" h-9 w-20 flex items-center hover:text-blue-500">Payments</NavLink>
+      <NavLink to="enrollments" className=" h-9 w-28 flex items-center hover:text-blue-500">Enrollments</NavLink>
       <NavLink to="testimonial" className=" h-9 w-24 flex items-center hover:text-blue-500">Testimonial</NavLink>
       <NavLink to="success" className=" h-9 w-28 flex items-center hover:text-blue-500">Success Story</NavLink>
-      <NavLink to="enrollments" className=" h-9 w-28 flex items-center hover:text-blue-500">Enrollments</NavLink>
       <NavLink to="/" className=" h-9 w-28 flex items-center hover:text-blue-500">Home</NavLink>
       </div>
     </div>

@@ -18,7 +18,7 @@ function Login() {
     try {
       e.preventDefault();
 
-      let response = await fetch("http://localhost:9000/api/login", {
+      let response = await fetch("http://localhost:9000/api/login",{
         method: "POST",
         headers: {
           "Content-Type": "application/json",
