@@ -25,7 +25,8 @@ function PaymentSuccess() {
           body: JSON.stringify({
             transaction_code: parseData.transaction_code,
             status: parseData.status,
-            total_amount: parseData.total_amount,
+            // total_amount: parseData.total_amount,
+            total_amount: parseFloat(parseData.total_amount.replace(/,/g, "")),
             userId: user._id,
             userName: user.name,
           }),

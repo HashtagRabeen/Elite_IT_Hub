@@ -28,8 +28,8 @@ const getPayment = async (req, res) => {
   try {
     let showPayment = await paymentModel.find();
     res
-      .status(201)
-      .json({ message: "Inquiry found successfully", showPayment });
+      .status(200)
+      .json({ message: "Payment found successfully", showPayment });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "error while getting payment history", error });
