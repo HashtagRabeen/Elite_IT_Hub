@@ -18,7 +18,7 @@ function Login() {
     try {
       e.preventDefault();
 
-      let response = await fetch("http://localhost:9000/api/login",{
+      let response = await fetch("http://localhost:9000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,10 +28,10 @@ function Login() {
           password,
         }),
       });
+      const data = await response.json();
+      console.log(response);
       if (response.ok) {
-        response = await response.json();
-        console.log(response);
-        toast.success(response.message, {
+        toast.success(data.message, {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: false,
@@ -42,13 +42,13 @@ function Login() {
           theme: "light",
           transition: Zoom,
         });
-        console.log(response.token);
-        dispatch({ type: "Login", payload: { token: response.token } });
+        console.log(data.token);
+        dispatch({ type: "Login", payload: { token: data.token } });
         // localStorage.setItem("auth-token",response.token)
         navigate("/");
       } else {
         console.log("Login Failed");
-        toast.error("Login failed", {
+        toast.error(data.message, {
           position: "top-right",
           autoClose: 1500,
           hideProgressBar: false,
@@ -59,9 +59,15 @@ function Login() {
           theme: "light",
           transition: Bounce,
         });
+        setPassword("")
       }
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
+      toast.error("Server not responding", {
+        position: "top-right",
+        autoClose: 2000,
+        transition: Bounce,
+      });
     }
   };
   return (

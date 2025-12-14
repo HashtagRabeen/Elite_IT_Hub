@@ -15,17 +15,9 @@ const testimonialRouter = require("./src/Routes/testimonialRoute");
 const inquiryRouter = require("./src/Routes/inquiryRoute");
 const enrollRouter = require("./src/Routes/enrollRoute");
 const paymentRouter = require("./src/Routes/paymentRoute");
-// const rateLimit=require('express-rate-limit')
-
-// const limiter=rateLimit({
-//    windowMs:1000*60,
-//    max:5,
-//    message:"Too many requests from this ip, please try again later"
-// })
 
 app.use(express.json());
 app.use(cors());
-// app.use(limiter)
 
 app.use("/upload", express.static("./public/images"));
 app.use("/api", studentRouter);
