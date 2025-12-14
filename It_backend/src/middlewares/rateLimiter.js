@@ -9,4 +9,11 @@ const loginLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
-module.exports = loginLimiter;
+const signUpLimiter=rateLimit({
+    windowsMs:1000*60,
+    max:5,
+    message:{
+        message:"Too many requests, please try again later"
+    }
+})
+module.exports = {loginLimiter,signUpLimiter};
