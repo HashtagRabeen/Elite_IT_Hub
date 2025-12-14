@@ -31,11 +31,11 @@ import ScrollToTop from "./Components/ScrollToTop";
 function App() {
   const location = useLocation();
 
-  const hideNavbarAndFooter =
-    location.pathname.startsWith("/admindashboard") ||
-    location.pathname.startsWith("/AdminDashboard")||
-    location.pathname === "/login" || 
-    location.pathname.startsWith("/signup");
+    const hideNavbarAndFooter =
+      location.pathname.startsWith("/admindashboard") ||
+      location.pathname.startsWith("/AdminDashboard")||
+      location.pathname === "/login" || 
+      location.pathname.startsWith("/signup");
 
   return (
     <div>
@@ -47,7 +47,7 @@ function App() {
           path="/admindashboard"
           element={<Protected Comp={AdminDashboard} />}
         >
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />  
           <Route path="user" element={<User />} />
           <Route path="courses" element={<AdminCourses />} />
           <Route path="editCourse" element={<EditCourse />} />

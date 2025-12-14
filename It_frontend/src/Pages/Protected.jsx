@@ -15,5 +15,5 @@ function Protected({ Comp }) {
   },[state,navigate]);//it works when value changes in state
   return <Comp />;
 }
-
+  
 export default Protected;

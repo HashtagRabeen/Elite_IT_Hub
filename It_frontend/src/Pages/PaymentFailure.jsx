@@ -13,7 +13,7 @@ function PaymentFailure() {
           Payment Failed!
         </h1>
         <NavLink to="/cart" className="py-2 px-7 bg-[#14B8A6] text-white mt-6 rounded-xl">Try Again</NavLink>
-      </div>
+      </div>  
     </div>
   );
 }
