@@ -12,7 +12,6 @@ function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [courses, setCourses] = useState([]);
 
-  // Slide data with bgColor for each slide
   const slides = [
     {
       title: "10% Off January Batch",
