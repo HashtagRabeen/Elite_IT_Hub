@@ -10,6 +10,7 @@ import {
 
 import { FaPython } from "react-icons/fa";
 import { FaDatabase } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { FaPaintBrush } from "react-icons/fa";
 import { SiGoogleclassroom } from "react-icons/si";
 import { IoLogOut } from "react-icons/io5";
@@ -23,6 +24,7 @@ import { AuthContext } from "../Context/AuthProvider";
 import { CartContext } from "../Context/CartProvider";
 
 function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { state, dispatch, user } = useContext(AuthContext);
   const { cartState } = useContext(CartContext);
   console.log(cartState);
@@ -69,15 +71,32 @@ function Navbar() {
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 pt-2">
-        <div className="flex justify-between items-center h-16 font-semibold">
-          <NavLink to="/" className=" flex items-center">
-            <span className="font-bold text-2xl text-[#184f81]">Elite</span>
-            <span className="font-bold text-2xl pl-2"> IT Hub</span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20">
+        <div className="flex justify-between items-center h-full font-semibold ">
+          <NavLink
+            to="/"
+            className=" flex flex-nowrap items-center sm:text-xl md:text-xl text-xl"
+          >
+            <span className="font-bold text-xl sm:text-2xl md:text-3xl text-[#184f81]">
+              Elite
+            </span>
+            <span className="font-bold text-xl sm:text-2xl md:text-3xl pl-2">
+              {" "}
+              IT Hub
+            </span>
           </NavLink>
-          <div className="flex justify-center gap-x-3 items-center">
+          {/* hambugger icon added */}
+          <button
+            className="md:hidden text-3xl"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            <GiHamburgerMenu />
+          </button>
+
+          {/* for desktop */}
+          <div className="hidden md:flex gap-x-3 items-center">
             <NavLink
-              className="h-[40px] w-[70px] flex flex-col justify-center items-center hover:bg-slate-100 hover:text-[#184f81]"
+              className="h-[40px] px-4 flex justify-center items-center hover:bg-slate-100 hover:text-[#184f81]"
               to="/"
             >
               Home
@@ -89,22 +108,21 @@ function Navbar() {
             >
               {/* Dropdown button */}
               <button
-                // onClick={toggleDropdown}
-                className="group-hover:flex h-[50px] w-[90px] flex items-center justify-center hover:text-[#184f81] z-50 hover:bg-slate-100"
+                className="group-hover:flex h-[40px] px-3 py-2border flex items-center justify-center hover:text-[#184f81] hover:bg-slate-100"
                 to="/courses"
               >
                 Courses <FaChevronDown className="ml-1 text-xs" />
               </button>
               {isOpen && (
-                <div className="bg-white shadow-lg rounded-md flex flex-col absolute w-52 top-full left-0 font-normal ">
+                <div className="bg-white shadow-lg rounded-md flex flex-col absolute w-52 top-full left-0 font-normal py-1 z-50">
                   {lists.length > 0 ? (
                     <div>
-                      {lists.slice(0, 4).map((list, index) => {
+                      {lists.slice(0, 4).map((list) => {
                         return (
-                          <div key={index}>
+                          <div key={list._id}>
                             <NavLink
                               to={`/courseDescription/${list._id}`}
-                              className="py-1 text-gray-700 flex pl-6 hover:bg-gray-100 hover:text-[#184f81]"
+                              className="px-4 py-1 text-gray-700 flex items-center hover:bg-gray-100 hover:text-[#184f81]"
                               onClick={() => setIsOpen(false)}
                             >
                               {list.name}
@@ -117,26 +135,12 @@ function Navbar() {
                     <div></div>
                   )}
                   <div className="border-t-2 border-gray-300">
-                    {/* <NavLink
-                      className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-blue-500"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <FaCertificate size={18} className="mt-[2px] mr-2" />
-                      Certification Prep
-                    </NavLink>
-                    <NavLink
-                      className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-blue-500"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <SiGoogleclassroom size={18} className="mt-[2px] mr-2" />
-                      Demo Classes
-                    </NavLink> */}
                     <NavLink
                       className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100 hover:text-[#184f81]"
                       to="/courses"
                       onClick={() => setIsOpen(false)}
                     >
-                      <VscCompassActive size={18} className="mt-[2px] mr-2" />
+                      <VscCompassActive size={18} className=" mr-2" />
                       Explore More
                     </NavLink>
                   </div>
@@ -148,103 +152,96 @@ function Navbar() {
               onMouseEnter={handleMouseEnter1}
               onMouseLeave={handleMouseLeave1}
             >
-              <button className=" h-[40px] w-[100px] hover:bg-slate-100 flex items-center justify-center hover:text-[#184f81]">
+              <button className=" h-[40px] hover:bg-slate-100 flex items-center justify-center hover:text-[#184f81]">
                 Students <FaChevronDown className="ml-1 text-xs" />
               </button>
               {isOpen1 && (
-                <div className="bg-white shadow-lg rounded-md flex flex-col absolute w-52 top-full left-0 font-normal">
-                  <div>
-                    <NavLink
-                      to="/python"
-                      className="py-1 text-gray-700 flex hover:bg-gray-100 pl-3 hover:text-[#184f81]"
-                      onClick={() => setIsOpen1(false)}
-                    >
-                      <FaCertificate size={18} className="mt-1 mr-2" />
-                      Verify Certificate
-                    </NavLink>
-                    <NavLink
-                      to="/web-development"
-                      className="py-1 text-gray-700 hover:bg-gray-100 flex pl-3 hover:text-[#184f81]"
-                      onClick={() => setIsOpen1(false)}
-                    >
-                      <MdBusinessCenter size={18} className="mt-[2px] mr-2" />
-                      Job Placement
-                    </NavLink>
-                  </div>
-                  <div className="mt-1">
-                    <NavLink
-                      className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100"
-                      onClick={() => setIsOpen1(false)}
-                    >
-                      <FaCertificate size={18} className="mt-[2px] mr-2" />
-                      Certification Prep
-                    </NavLink>
-                    <NavLink
-                      className="py-1 text-gray-700 flex pl-3 hover:bg-gray-100"
-                      onClick={() => setIsOpen1(false)}
-                    >
-                      <SiGoogleclassroom size={18} className="mt-[2px] mr-2" />
-                      Demo Classes
-                    </NavLink>
-                  </div>
+                <div className="absolute top-full left-0 bg-white w-56 shadow-lg rounded-md py-1 z-50">
+                  <NavLink
+                    to="/python"
+                    className="px-4 py-2 flex items-center hover:bg-gray-100 hover:text-[#184f81]"
+                    onClick={() => setIsOpen1(false)}
+                  >
+                    <FaCertificate size={18} className="mr-2" />
+                    Verify Certificate
+                  </NavLink>
+                  <NavLink
+                    to="/web-development"
+                    className="px-4 py-2 flex items-center hover:bg-gray-100 hover:text-[#184f81]"
+                    onClick={() => setIsOpen1(false)}
+                  >
+                    <MdBusinessCenter size={18} className="mr-2" />
+                    Job Placement
+                  </NavLink>
+                  <NavLink
+                    className="px-4 py-2 flex items-center hover:bg-gray-100 hover:text-[#184f81]"
+                    onClick={() => setIsOpen1(false)}
+                  >
+                    <FaCertificate size={18} className="mr-2" />
+                    Certification Prep
+                  </NavLink>
+                  <NavLink
+                    className="px-4 py-2 flex items-center hover:bg-gray-100 hover:text-[#184f81]"
+                    onClick={() => setIsOpen1(false)}
+                  >
+                    <SiGoogleclassroom size={18} className=" mr-2" />
+                    Demo Classes
+                  </NavLink>
                 </div>
               )}
             </div>
             <NavLink
-              className="h-[40px] w-[80px] hover:bg-slate-100 flex flex-col justify-center items-center hover:text-[#184f81]"
+              className="h-[40px] px-3 hover:bg-slate-100 flex justify-center items-center hover:text-[#184f81]"
               to="/aboutus"
             >
               About Us
             </NavLink>
             <NavLink
-              className="h-[40px] w-[60px] hover:bg-slate-100 flex flex-col justify-center items-center hover:text-[#184f81]"
+              className="h-[40px] px-3 hover:bg-slate-100 flex flex-col justify-center items-center hover:text-[#184f81]"
               to="/"
             >
               Blog
             </NavLink>
             <NavLink
-              className="h-[40px] w-[60px] hover:bg-slate-100 flex justify-center items-center"
+              className="relative h-[40px] px-3 hover:bg-slate-100 flex justify-center items-center"
               to="/cart"
             >
               <FaShoppingCart size={20} className="hover:text-[#9C27B0]" />
-              <span className="bg-orange-600 text-white h-4 w-4 rounded-full flex justify-center items-center text-sm relative bottom-3 pb-[2px]">
+              <span className="absolute -top-2 -right-2 bg-orange-600 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center">
                 {totalItems}
               </span>
             </NavLink>
           </div>
-          <div className="flex space-x-3 h-[50px] justify-center items-center">
+          <div className="hidden md:flex gap-3 items-center">
             {state.token ? (
               <>
                 <button
                   onClick={() => {
                     dispatch({ type: "Logout" });
                   }}
-                  className="border-2 flex justify-center items-center h-[40px] w-[120px] border-gray-300 rounded-sm hover:border-red-500"
+                  className="border flex items-center px-4 py-2 rounded-md hover:border-red-500"
                 >
-                  <IoLogOut size={25} className=" mr-2 mt-1" />
+                  <IoLogOut size={25} className=" mr-2" />
                   Log out
                 </button>
-                <div>
-                  <span className="text-base font-medium text-gray-700 relative left-20 flex">
-                    <CgProfile size={25} />{" "}
-                    <h1 className="pl-2">{user?.name}</h1>
-                  </span>
+                <div className="flex  items-center  gap-2">
+                  <CgProfile size={25} /> {user?.name}
                 </div>
               </>
             ) : (
               <div className="flex space-x-3 h-[50px] justify-center items-center">
                 <NavLink
                   to="/login"
-                  className="border-2 flex justify-center items-center h-[40px] w-[100px] border-gray-300 hover:border-blue-600 hover:text-[#184f81] rounded-sm"
+                  className="border-2 px-4 py-2 border-gray-300 hover:border-blue-600 hover:text-[#184f81] rounded-sm"
                 >
-                  <FaSignInAlt size={16} className=" mr-2 mt-1" />
+                  <FaSignInAlt size={16} className="inline mr-2" />
                   Login
                 </NavLink>
                 <NavLink
                   to="/signup"
-                  className="flex justify-center items-center h-[40px] w-[100px] rounded-lg text-white bg-blue-600 hover:bg-[#1E90FF]"
+                  className="px-4 py-2 rounded-lg text-white bg-blue-600 hover:bg-[#1E90FF]"
                 >
-                  <FaUserPlus size={16} className=" mr-2" />
+                  <FaUserPlus size={16} className="inline mr-2" />
                   Register
                 </NavLink>
               </div>
@@ -252,6 +249,52 @@ function Navbar() {
           </div>
         </div>
       </div>
+      {/* MOBILE MENU */}
+      {mobileOpen && (
+        <div className="md:hidden bg-white shadow-lg px-4 py-4 space-y-3">
+          <NavLink to="/" className="block py-2">
+            Home
+          </NavLink>
+          <NavLink to="/courses" className="block py-2">
+            Courses
+          </NavLink>
+          <NavLink to="/aboutus" className="block py-2">
+            About Us
+          </NavLink>
+          <NavLink to="/cart" className="block py-2">
+            Cart ({totalItems})
+          </NavLink>
+
+          {state.token ? (
+            <>
+              <div className="flex items-center gap-2 py-2">
+                <CgProfile /> {user?.name}
+              </div>
+              <button
+                onClick={() => dispatch({ type: "Logout" })}
+                className="border w-full py-2"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <NavLink
+                to="/login"
+                className="block py-2 bg-green-400 text-white text-center rounded"
+              >
+                Login
+              </NavLink>
+              <NavLink
+                to="/signup"
+                className="block py-2 bg-blue-600 text-white text-center rounded"
+              >
+                Register
+              </NavLink>
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 }
