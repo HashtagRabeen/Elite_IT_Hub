@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState } from "react";
 import { FaGraduationCap, FaArrowRight } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
