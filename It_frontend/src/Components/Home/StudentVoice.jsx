@@ -1,16 +1,33 @@
 import { useEffect, useState } from "react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1324 },
+    items: 3,
+    slidesToSlide: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1324, min: 764 },
+    items: 2,
+    slidesToSlide: 2,
+  },
+  mobile: {
+    breakpoint: { max: 764, min: 0 },
+    items: 1,
+    slidesToSlide: 1,
+  },
+};
 
 function StudentVoice() {
   const [voice, setVoice] = useState([]);
 
   const getTestimonial = async () => {
-    try {
-      const response = await fetch("http://localhost:9000/api/getTestimonial");
-      const data = await response.json();
-      setVoice(data.showTesti);
-    } catch (err) {
-      console.log(err);
-    }
+    let response = await fetch("http://localhost:9000/api/getTestimonial");
+    response = await response.json();
+    console.log(response.showTesti);
+    setVoice(response.showTesti);
   };
 
   useEffect(() => {
@@ -18,51 +35,73 @@ function StudentVoice() {
   }, []);
 
   return (
-    <section className="bg-[#146aa7] py-12 px-4 sm:px-6 lg:px-20">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+    <div className="flex flex-col lg:flex-row p-4 sm:p-8 lg:p-16 bg-[#146aa7] gap-6 lg:gap-8">
+      <div className="w-full lg:w-[380px] lg:flex-shrink-0 text-white flex flex-col justify-center">
+        <h1 className="text-2xl sm:text-3xl lg:text-3xl font-bold mb-3">
+          Our Student Voice
+        </h1>
+        <p className="text-base sm:text-lg">
+          Our team can assist you in transforming your skill through latest tech
+          capabilities to stay ahead of the competition
+        </p>
+      </div>
 
-        {/* Header Section */}
-        <div className="lg:w-1/3 text-white flex flex-col justify-center">
-          <h1 className="text-3xl sm:text-4xl font-bold">Our Student Voice</h1>
-          <p className="mt-6 text-[16px] sm:text-[18px] md:text-lg max-w-sm">
-            Our team can assist you in transforming your skill through latest tech
-            capabilities to stay ahead of the competition
-          </p>
-        </div>
+      {voice.length > 0 ? (
+        <div className="flex-1 min-w-0 w-full">
+          <Carousel
+            showDots={false}
+            responsive={responsive}
+            infinite={true}
+            autoPlay={true}
+            autoPlaySpeed={4000}
+            containerClass="carousel-container"
+            itemClass="px-2 sm:px-3"
+          >
+            {voice.map((item) => {
+              return (
+                <div
+                  key={item._id}
+                  className="flex flex-col p-4 sm:p-6 lg:p-4 md:h-96 h-64
+                   items-center font-sans shadow-md shadow-slate-200 rounded-lg bg-[#F9F9FB]"
+                >
+                  <div className="overflow-y-auto flex-grow mb-4">
+                    <p className="min-h-[140px] sm:min-h-[160px] lg:min-h-[176px] w-full">
+                      <span className="text-4xl sm:text-5xl lg:text-6xl opacity-50">
+                        "
+                      </span>
+                      {item.message}
+                    </p>
+                  </div>
 
-        {/* Testimonials Section */}
-        <div className="lg:w-2/3 flex gap-6 justify-start">
-          {voice.length > 0 &&
-            voice.slice(0, 2).map((item) => (
-              <div
-                key={item._id}
-                className="flex flex-col w-full sm:w-[280px] md:w-[300px] lg:w-[48%] h-[300px] bg-white rounded-lg shadow-md overflow-hidden"
-              >
-                {/* Message */}
-                <div className="p-4 flex-1 overflow-auto">
-                  <p className="text-gray-800 relative">
-                    <span className="text-6xl opacity-50 mr-1">"</span>
-                    {item.message}
-                  </p>
-                </div>
+                  <div className="flex mt-2 w-full items-center gap-3 sm:gap-4">
+                    <div className="flex-shrink-0">
+                      <img
+                        src={`http://localhost:9000/upload/${item.image}`}
+                        alt={item.name}
+                        className="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 rounded-full object-cover"
+                      />
+                    </div>
 
-                {/* Student Info */}
-                <div className="flex items-center p-4 border-t border-gray-200">
-                  <img
-                    src={`http://localhost:9000/upload/${item.image}`}
-                    alt={item.name}
-                    className="h-20 w-20 rounded-full object-cover"
-                  />
-                  <div className="ml-4">
-                    <h2 className="font-semibold text-[#04183f]">{item.name}</h2>
-                    <p className="text-[#04183FB3]">{item.course}</p>
+                    <div className="flex flex-col justify-center flex-1 min-w-0">
+                      <h1 className="font-semibold text-[#04183f] text-sm sm:text-base truncate">
+                        {item.name}
+                      </h1>
+                      <p className="text-[#04183FB3] text-xs sm:text-sm truncate">
+                        {item.course}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
+          </Carousel>
         </div>
-      </div>
-    </section>
+      ) : (
+        <div className="flex-1 flex items-center justify-center text-white">
+          <p>No testimonials available</p>
+        </div>
+      )}
+    </div>
   );
 }
 
