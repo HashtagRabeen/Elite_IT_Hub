@@ -1,10 +1,9 @@
-import React, {useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bounce, Flip, toast } from "react-toastify";
 import { AuthContext } from "../Context/AuthProvider";
 
 function AdminCourses() {
-
   const [name, setName] = useState("");
   const [overview, setOverview] = useState("");
   const [image, setImage] = useState(null);
@@ -18,6 +17,11 @@ function AdminCourses() {
 
   const [courses, setCourses] = useState([]);
 
+  const [category1, setCategory1] = useState([]);
+
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
   const navigate = useNavigate();
 
   const getCourses = async () => {
@@ -28,6 +32,20 @@ function AdminCourses() {
   };
   useEffect(() => {
     getCourses();
+  }, []);
+
+  useEffect(() => {
+    const getCategory = async () => {
+      try {
+        let response = await fetch("http://localhost:9000/api/getCategory");
+        response = await response.json();
+        console.log(response.showCategory);
+        setCategory1(response.showCategory);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCategory();
   }, []);
 
   const createCourse = async (e) => {
@@ -93,6 +111,78 @@ function AdminCourses() {
       toast("Course Not Found");
     }
   };
+
+  const deleteCourseCheck = async ({ id, isDeleted }) => {
+    const isConfirmed = confirm("Are you sure you want to delete the course?");
+    if (isConfirmed) {
+      try {
+        let response = await fetch(
+          `http://localhost:9000/api/deleteCourseUpdate/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ isDeleted }),
+          }
+        );
+        const data = await response.json();
+        console.log(data);
+        if (response.ok) {
+          console.log(data);
+          toast.success(data.message, {
+            position: "top-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+          getCourses();
+        } else {
+          console.log(response.message);
+          toast.error("hi", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Bounce,
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const deleteCourseBy = async ({ courseName, courseId }) => {
+    let response = await fetch("http://localhost:9000/api/savedCourseDelete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userName: user.name,
+        userId: user._id,
+        courseId,
+        courseName,
+      }),
+    });
+    response = await response.json();
+    console.log(response);
+    // if(response.ok){
+    //   getCourses()
+    // }
+  };
+
+  const activeCourses = courses.filter((course) => course.isDeleted !== true);
   return (
     <div>
       <div className="ml-48 font-bold text-4xl mt-10">
@@ -100,9 +190,9 @@ function AdminCourses() {
       </div>
       <form
         onSubmit={createCourse}
-        className="flex w-[70%] m-auto p-7 gap-y-5 mt-10 rounded-md flex-wrap shadow-md"
+        className="flex w-full md:w-[70%] m-auto p-7 gap-y-5 mt-10 rounded-md flex-wrap shadow-md"
       >
-        <div className="flex flex-col w-80">
+        <div className="flex flex-col w-full md:w-80">
           <label htmlFor="name" className="font-semibold mb-1">
             Course Name:
           </label>
@@ -115,7 +205,7 @@ function AdminCourses() {
             id="name"
             required
             placeholder="Enter course name"
-            className="w-80 outline-none border-2 border-gray-300 p-1 rounded-lg px-4 py-2"
+            className=" w-full md:w-80 outline-none border-2 border-gray-300 p-1 rounded-lg px-4 py-2"
           />
         </div>
         <div className="flex flex-col w-80 ml-18">
@@ -129,13 +219,26 @@ function AdminCourses() {
             }}
             name="category"
             id="category"
-            className="px-4 py-2 border-gray-300 border-2 w-80 rounded-lg"
+            className="px-4 py-2 border-gray-300 border-2 rounded-lg  w-full md:w-80"
           >
-            <option value="">Select Category</option>
+            {category1.map((item) => (
+              <>
+                {item.isActive === true ? (
+                  <>
+                    <option key={item._id} value="">
+                      {item.category}
+                    </option>
+                  </>
+                ) : (
+                  <>No values</>
+                )}
+              </>
+            ))}
+            {/* <option value="">Select Category</option>
             <option value="Programming">Programming</option>
             <option value="Web Development">Web Development</option>
             <option value="AI">AI</option>
-            <option value="Designing">Designing</option>
+            <option value="Designing">Designing</option> */}
           </select>
         </div>
         <div className="flex flex-col w-80">
@@ -151,7 +254,7 @@ function AdminCourses() {
             placeholder="Eg. 2.5 Months"
             required
             id="duration"
-            className="border-2 border-gray-300 outline-none w-80 p-1 rounded-lg px-4 py-2"
+            className="border-2 border-gray-300 outline-none  w-full md:w-80 p-1 rounded-lg px-4 py-2"
           />
         </div>
         <div className="flex flex-col w-80 ml-18">
@@ -167,10 +270,10 @@ function AdminCourses() {
             placeholder="Eg. AI developer Data Analyst"
             required
             id="scope"
-            className="border-2 border-gray-300 outline-none w-80 p-1 rounded-lg px-4 py-2"
+            className="border-2 border-gray-300 outline-none  w-full md:w-80 p-1 rounded-lg px-4 py-2"
           />
         </div>
-        <div className="flex flex-col w-[84%]">
+        <div className="flex flex-col  w-full">
           <label htmlFor="technologies" className="font-semibold mb-1">
             Technologies:
           </label>
@@ -183,7 +286,7 @@ function AdminCourses() {
             placeholder="Eg. React, Node.js, MongoDB"
             required
             id="technologies"
-            className="border-2 border-gray-300 outline-none w-full p-1 rounded-lg px-4 py-2"
+            className="border-2 border-gray-300 outline-none  w-full md:w-80 p-1 rounded-lg px-4 py-2"
           />
         </div>
         <div className="flex flex-col">
@@ -273,9 +376,9 @@ function AdminCourses() {
         </button>
       </form>
       <div>
-        {courses.length > 0 ? (
+        {activeCourses.length ? (
           <div className="flex justify-center m-auto gap-15 p-5 flex-wrap mt-15">
-            {courses.map((course) => {
+            {activeCourses.map((course) => {
               return (
                 <div
                   key={course._id}
@@ -306,7 +409,12 @@ function AdminCourses() {
                     </button>
                     <button
                       onClick={() => {
-                        deleteCourse(course._id);
+                        // deleteCourse(course._id);
+                        deleteCourseBy({
+                          courseName: course.name,
+                          courseId: course._id,
+                        });
+                        deleteCourseCheck({ isDeleted: true, id: course._id });
                       }}
                       className="px-4 py-2 rounded-xl bg-red-500 text-white"
                     >
