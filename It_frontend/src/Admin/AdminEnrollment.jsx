@@ -711,7 +711,7 @@ const StatCard = ({ title, value, color, icon }) => {
   );
 };
 
-const Section = ({ title, data, onDelete, onUpdate, statusColor }) => {
+const Section = ({ title, data, onDelete, onUpdate}) => {
   const [expandedId, setExpandedId] = useState(null);
 
   const formatDate = (dateString) => {
