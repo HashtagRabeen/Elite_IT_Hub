@@ -15,6 +15,9 @@ const testimonialRouter = require("./src/Routes/testimonialRoute");
 const inquiryRouter = require("./src/Routes/inquiryRoute");
 const enrollRouter = require("./src/Routes/enrollRoute");
 const paymentRouter = require("./src/Routes/paymentRoute");
+const categoryRouter=require("./src/Routes/categoryRoute")
+const deleteCourseRouter=require("./src/Routes/deleteCourseRoute")
+const updateUserRouter=require("./src/Routes/updateUserRoute")
 
 app.use(express.json());
 app.use(cors());
@@ -29,6 +32,9 @@ app.use("/api", testimonialRouter);
 app.use("/api", inquiryRouter);
 app.use("/api", enrollRouter);
 app.use("/api", paymentRouter);
+app.use("/api", categoryRouter);
+app.use("/api", deleteCourseRouter);
+app.use("/api", updateUserRouter);
 
 app.listen(PORT, () => {
   console.log(`The port is listening in port: ${PORT}`);
